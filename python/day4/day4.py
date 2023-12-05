@@ -1,5 +1,6 @@
 from math import prod
 import collections
+import time
 
 def read_data_from_file(file_path):
     with open(file_path, 'r') as file:
@@ -44,7 +45,7 @@ for i in range(len(data)):
     for j in range(i + 1, i + cards[i] + 1):
         counts[j] += counts[i]
         print(f'Your {counts[i]} copies of card {i} have {cards[i]} matching numbers, so you win {counts[i]} copies of card {j}')
-
+        time.sleep(0.2)
 print(sum(counts))
 
 
