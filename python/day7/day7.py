@@ -24,19 +24,18 @@ def hand_type(hand):
         return 1
     return 0
 
-def new_hand(hand):
-    card_counts = [(hand.count(card), card) for card in hand if card != 'J']
-    rankings = sorted(card_counts)
-    if len(rankings) > 0:
-        strongest = rankings[-1][1]
-        return [strongest if card == 'J' else card for card in hand]
+def get_strongest_hand(hand):
+    normal_cards = [card for card in hand if card != "J"]
+    if len(normal_cards) > 0:
+        most_card = max(set(normal_cards), key=normal_cards.count)
+        return [most_card if card == 'J' else card for card in hand]
     else:
         return 'AAAAA'
 
 def hand_rank(hand):
     strongest_hand = None
     if 'J' in hand:
-        strongest_hand = new_hand(hand)
+        strongest_hand = get_strongest_hand(hand)
     return (hand_type(strongest_hand if strongest_hand else hand), [letter_map.get(card, card) for card in hand])
     
 rankings = sorted(games, key=lambda hand: hand_rank(hand[0]))
