@@ -17,13 +17,15 @@ def f(seq):
         seq.append(diffs)
         return f(seq)
 
-answers = []
+p1 = 0
+p2 = 0
 
 for s in sequences:
     diffs = f([s])
-    next_val = 0
+    fwd_ex = 0
     for i in range(len(diffs) - 1, -1, -1):
-            next_val = diffs[i][0] - next_val
-    answers.append(next_val) 
+        fwd_ex = diffs[i][0] - fwd_ex
+        p1 += diffs[i][-1]
+    p2 += fwd_ex
    
-print(sum(answers))
+print(p1, p2)
