@@ -27,7 +27,7 @@ def hand_type(hand):
 def get_strongest_hand(hand):
     normal_cards = [card for card in hand if card != "J"]
     if len(normal_cards) > 0:
-        most_card = max(set(normal_cards), key=normal_cards.count)
+        most_card = max(normal_cards, key=normal_cards.count)
         return [most_card if card == 'J' else card for card in hand]
     else:
         return 'AAAAA'
