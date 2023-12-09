@@ -5,7 +5,6 @@ def read_data_from_file(file_path):
 
 file_path = '2023/python/day9/data.txt'
 data = read_data_from_file(file_path)
-
 sequences = [list(map(int, (line.split()))) for line in data]
 
 def f(seq):
