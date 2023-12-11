@@ -13,7 +13,7 @@ directions = [(-1, 0), (1, 0), (0, -1), (0, 1)]
 grid = {}
 S = None
 
-pipe_connections = {
+valid_connections = {
     (1, 0): ['|', 'L', 'J', 'S'],
     (-1, 0): ['7', 'F', '|', 'S'],
     (0, -1): ['-', 'F', 'L', 'S'],
@@ -33,6 +33,7 @@ def get_connections(node):
     connections = []
     row, col = node
     pipe = pipes[row][col]
+    
     if pipe == '.':
         return None
     if pipe == 'S':
@@ -44,7 +45,7 @@ def get_connections(node):
             return False
         ax, ay = adj_pipe[0]
         pipe_type = pipes[ax][ay]
-        if pipe_type not in pipe_connections[dirs]:
+        if pipe_type not in valid_connections[dirs]:
             return None
         else:
             connections.extend(adj_pipe)
