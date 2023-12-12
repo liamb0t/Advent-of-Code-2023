@@ -29,24 +29,24 @@ def move_galaxy(node):
     row, col = node[0], node[1]
     for empty_row in empty_rows:
         if node[0] > empty_row:
-            row = node[0] + empty_rows.index(empty_row) + 1
+            row = node[0] + ((empty_rows.index(empty_row) + 1) * 10)
     for empty_col in empty_cols:
         if node[1] > empty_col:
-            col = node[1] + empty_cols.index(empty_col) + 1
+            col = node[1] + ((empty_cols.index(empty_col) + 1) * 10)
     return (row, col)
 
 shifted_galaxies = {}
-for i, coords in  enumerate(list(map(move_galaxy, galaxies.values())), 1):
+for i, coords in enumerate(list(map(move_galaxy, galaxies.values())), 1):
     shifted_galaxies[i] = coords
 
 num_galaxies = len(galaxies.keys())
 sum = 0
 
 for i in range(1, num_galaxies + 1):
+    x1, y1 = shifted_galaxies[i]
     for j in range(i, num_galaxies + 1):
+        x2, y2 = shifted_galaxies[j]
         if i != j:
-            x1, y1 = shifted_galaxies[i]
-            x2, y2 = shifted_galaxies[j]
-            sum += abs(x2 - x1) + abs(y2 - y1)
+            sum += abs(x1 - x2) + abs(y1 - y2)
             
 print(sum)
