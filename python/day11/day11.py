@@ -10,21 +10,11 @@ universe = [[x for x in line] for line in read_data_from_file(file_path)]
 galaxies = []
 rows = len(universe)
 cols = len(universe[0])
-empty_rows = []
-empty_cols = []
-expansion = 1000000 - 1
+empty_rows = [i for i, row in enumerate(universe) if all(cell == '.' for cell in row)]
+empty_cols = [i for i in range(cols) if all(row[i] == '.' for row in universe)]
+galaxies = [(i, j) for i in range(rows) for j in range(cols) if universe[i][j] == '#']
 
-for i in range(rows):
-    row = universe[i]
-    col = []
-    if all(x=='.' for x in row):
-        empty_rows.append(i)
-    for j in range(cols): 
-        col.append(universe[j][i])
-        if universe[i][j] == '#':
-            galaxies.append((i, j))
-    if all(x=='.' for x in col):
-        empty_cols.append(i)
+expansion = 1000000 - 1
 
 def move_galaxy(node):
     row, col = node[0], node[1]
@@ -39,12 +29,6 @@ def move_galaxy(node):
     return (row, col)
 
 shifted_galaxies = list(map(move_galaxy, galaxies))
-num_galaxies = len(galaxies)
-total = 0
-
-for p1, p2 in combinations(shifted_galaxies, 2):
-    x1, y1 = p1
-    x2, y2 = p2
-    total += abs(x1 - x2) + abs(y1 - y2)
+total = sum([abs(x1 - x2) + abs(y1 - y2) for (x1, y1), (x2, y2) in combinations(shifted_galaxies, 2)])
 
 print(total)

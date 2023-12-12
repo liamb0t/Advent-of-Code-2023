@@ -24,10 +24,3 @@ for line in data[2:]:
                     outputs[i] = True
 
 print(f'Part 1: {min(seeds)}')
-
-
-
-
-
-
-
