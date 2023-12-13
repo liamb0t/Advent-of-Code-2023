@@ -6,7 +6,7 @@ def read_data_from_file(file_path):
 file_path = '2023/python/day12/data.txt'
 data = [tuple(line.split()) for line in read_data_from_file(file_path)]
 
-for seq, nums in [data[1]]:
+for seq, nums in [data[0]]:
     combinations = []
     queue = [int(n) for n in nums.split(',')]
     while queue:
