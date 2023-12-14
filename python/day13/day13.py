@@ -11,12 +11,12 @@ def horizontal_dist(pattern):
     for i in range(1, rows):
         top_block = pattern[:i][::-1]
         bottom_block = pattern[i:]
-        block_size = min(len(top_block), len(bottom_block))
-        is_symmetric = True
-        for r1, r2 in zip(top_block[:block_size], bottom_block[:block_size]):
-            if r1 != r2:
-                is_symmetric = False
-        if is_symmetric:
+        smudges = 0
+        for r1, r2 in zip(top_block, bottom_block):
+            for char1, char2 in zip(r1, r2):
+                if char1 != char2:
+                    smudges += 1
+        if smudges == 0:
             return i
     return 0
 
