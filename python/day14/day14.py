@@ -6,9 +6,9 @@ def read_data_from_file(file_path):
 file_path = '2023/python/day14/data.txt'
 
 platform = [list(line) for line in read_data_from_file(file_path)]
-rocks = [(i, j) for i in range(len(platform)) for j in range(len(platform[0])) if platform[i][j] == 'O']
 
 def move_rocks(platform):
+    rocks = [(i, j) for i in range(len(platform)) for j in range(len(platform[0])) if platform[i][j] == 'O']
     total = 0
     for rock in rocks:
         row, col = rock[0], rock[1]
@@ -21,17 +21,18 @@ def move_rocks(platform):
                     platform[row - i + 1][col] =  '.'  
                 else:
                     break
-    return total
+    return total, platform
 
-def rotate(platform):
-    reversed_rows = [row[::-1] for row in platform]
-    return [list("".join(row)) for row in zip(*reversed_rows)]
+def rotate(pattern):
+    return [list("".join(row)) for row in zip(*pattern[::-1])]
 
 def cycle(num_cycles, platform):
     for cycle in range(num_cycles):
         for rotation in range(4):
-            move_rocks(platform)
+            load, platform = move_rocks(platform)
+            print(load)
             platform = rotate(platform)
     return move_rocks(platform)
 
-print(cycle(1000000000, platform))
+cycle(100, platform)
+
