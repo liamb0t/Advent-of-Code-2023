@@ -7,16 +7,20 @@ patterns = read_data_from_file(file_path)
 
 def horizontal_dist(pattern):
     rows = len(pattern)
-    for i in range(rows):
-        symeterical = True
-        for r1, r2 in zip(pattern[i::-1], pattern[i+1:]):
+   
+    for i in range(1, rows):
+        top_block = pattern[:i][::-1]
+        bottom_block = pattern[i:]
+        block_size = min(len(top_block), len(bottom_block))
+        is_symmetric = True
+        for r1, r2 in zip(top_block[:block_size], bottom_block[:block_size]):
             if r1 != r2:
-                symeterical = False
-        if symeterical:
-            return i + 1        
+                is_symmetric = False
+        if is_symmetric:
+            return i
     return 0
 
 def rotate(pattern):
     return ["".join(row) for row in zip(*pattern[::-1])]
 
-print(sum(horizontal_dist(p) * 100 + horizontal_dist(rotate(p)) for p in patterns))
+print(sum([horizontal_dist(p) * 100 + horizontal_dist(rotate(p)) for p in patterns]))
