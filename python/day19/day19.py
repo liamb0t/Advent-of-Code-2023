@@ -26,6 +26,7 @@ for workflow in data.split('\n\n')[0].splitlines():
 
 
 total = 0
+accepted_parts = []
 
 for part in parts:
     current_workflow = 'in'
@@ -41,18 +42,27 @@ for part in parts:
                     part_values[part_name] < val and operation == '<':
 
                     if destination_workflow in ['A', 'R']:
-                        total += sum(part) if rule == 'A' else 0
+                      
+                        if destination_workflow == 'A':
+                            if part not in accepted_parts:
+                                accepted_parts.append(part)
                         processed = True
+                        break
                     else:
                         current_workflow = destination_workflow
                         break
 
             except:
                 if rule in ['A', 'R']:
-                    total += sum(part) if rule == 'A' else 0
+                    if rule == 'A':
+                        if part not in accepted_parts:
+                            accepted_parts.append(part)
+                        total += sum(part) if rule == 'A' else 0
+                  
                     processed = True
+                    break
                 else:
                     current_workflow = rule
                     break
 
-print(total)    
+print(sum(sum(p) for p in accepted_parts))    
