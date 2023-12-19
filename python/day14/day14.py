@@ -19,6 +19,7 @@ def tilt(platform):
                     platform[row - i + 1][col] =  '.'  
                 else:
                     break
+                
     return platform
 
 def rotate(pattern):
@@ -28,10 +29,12 @@ def load(platform):
     return sum(row.count('O') * i for i, row in enumerate(platform[::-1], 1))
 
 def cycle(num_cycles, platform):
-    for cycle in range(num_cycles):
+    for cycle in range(1, num_cycles + 1):
         for rotation in range(4):
             platform = tilt(platform)
             platform = rotate(platform)
-        print(load(platform))
+    print(load(platform), cycle)
 
 cycle(10000, platform)
+
+# answer: 93736

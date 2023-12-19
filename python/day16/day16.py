@@ -28,13 +28,13 @@ def handle_breaker(curr_dir, new_pos, elem, dir):
         else:
             return [(0, -1),(0, 1)]
    
-q = [[(0, 0), (0, 1)]]
-seen = []
+q = [[(0, 0), (1, 0)]]
+seen = [q[0]]
 
 while q:
     position, direction = q.pop(0)
-    # print(position, direction)
     new_position = (position[0] + direction[0], position[1] + direction[1])
+
     if new_position[1] < 0 or new_position[0] < 0 or new_position[0] >= rows or new_position[1] >= cols:
         continue
 
@@ -60,7 +60,6 @@ for elem in seen:
     if elem[0] not in count:
         count.append(elem[0])
 
-print(len(count) + 1)
+print(len(count))
 # for x in grid:
 #     print(x)
-

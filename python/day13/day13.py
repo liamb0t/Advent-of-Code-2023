@@ -16,9 +16,9 @@ def horizontal_dist(pattern):
             for char1, char2 in zip(r1, r2):
                 if char1 != char2:
                     smudges += 1
-        if smudges == 0:
+        if smudges == 1:
             return i
-    return 0
+    return 0    
 
 def rotate(pattern):
     return ["".join(row) for row in zip(*pattern[::-1])]
